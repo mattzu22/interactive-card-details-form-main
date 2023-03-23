@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+
+@layer components {
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+
+ *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    //background: url(/src/images/bg-main-desktop.png) left no-repeat;
+    //background-size: contain;
+  }
+
+  .input{
+    @apply border-[1px] border-[grey] p-[10px] rounded-[5px] w-full;
+  }
+
+  .full{
+    @apply w-full
+  }
+
+  .name-input{
+   @apply text-[13px] tracking-[1.5px] mb-[10px]
+  }
+}
