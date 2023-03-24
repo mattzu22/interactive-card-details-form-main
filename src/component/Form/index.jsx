@@ -4,7 +4,7 @@ export const Form = () => {
       <form
         action="submit"
         method="get"
-        className="flex flex-col items-center justify-center pt-[130px] gap-[25px] p-[20px] uppercase max-w-[450px] m-auto"
+        className="flex flex-col items-center justify-center pt-[130px] gap-[25px] p-[20px] uppercase max-w-[450px] m-auto md:m-0"
       >
         <div className="full">
           <p className="name-input">cardholder name</p>
@@ -30,7 +30,7 @@ export const Form = () => {
 
         <div className="full flex gap-[8px]">
           <div className="w-[25%]">
-            <p className="name-input">exp. date</p>
+            <p className="name-input font-primary">exp. date</p>
             <input
               className="input"
               type="text"

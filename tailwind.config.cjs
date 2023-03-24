@@ -12,8 +12,8 @@ module.exports = {
         mobile: "url('/src/images/bg-main-mobile.png')",
         desktop: "url('/src/images/bg-main-desktop.png')"
       },
-      screens:{
-        
+      fontFamily:{
+        primary: 'Space Grotesk, sans-serif'
       }
     },
   },
