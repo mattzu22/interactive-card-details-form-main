@@ -3,7 +3,7 @@ import Backcard from "../../images/bg-card-back.png";
 
 export const Cartoes = () => {
   return (
-    <div className="bg-mobile bg-cover bg-no-repeat md:min-h-screen md:w-[480px]">
+    <div className="bg-bgMobile bg-cover bg-no-repeat md:min-h-screen md:w-[480px]">
       <div className="flex flex-col max-w-[350px] m-auto relative bottom-[-50px] md:margin-0 md:bottom-0 md:min-h-screen md:justify-center md:gap-[30px] md:max-w-[100%] md:left-[100px]">
         <img
           className="w-[300px] self-end relative bottom-[-70px] shadow-lg md:bottom-0 md:w-[350px] md:order-[1] md:left-[60px]"

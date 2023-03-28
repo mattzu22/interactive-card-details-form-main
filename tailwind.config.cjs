@@ -9,11 +9,17 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        mobile: "url('/src/images/bg-main-mobile.png')",
-        desktop: "url('/src/images/bg-main-desktop.png')"
+        bgMobile: "url('/src/images/bg-main-mobile.png')",
+        bgDesktop: "url('/src/images/bg-main-desktop.png')",
+        cardLogo: "url('/src/images/card-logo.svg')",
+        iconComplete: "url('/src/images/icon-complete.svg')",
       },
       fontFamily:{
         primary: 'Space Grotesk, sans-serif'
+      },
+      colors:{
+        grey: 'hsl(279, 6%, 55%)',
+        violet: 'hsl(278, 68%, 11%)'
       }
     },
   },
