@@ -1,4 +1,24 @@
-export const Form = () => {
+// import { useState } from "react";
+
+export const Form = (props) => {
+
+  // const [inputs, setInputs] = useState({
+  //   name: "",
+  //   cardNumber: " ",
+  //   MM: "",
+  //   YY: "",
+  //   CVC: "",
+  // })
+
+  // const handleInputChange = (event) =>{
+  //   const { target } = event
+  //   const { name } = target
+  //   const { value } = target
+  //   setInputs({
+  //     [name]: value
+  //   }) 
+  // }
+
   return (
     <>
       <form
@@ -14,6 +34,8 @@ export const Form = () => {
             name="name"
             id="name"
             placeholder="e.g. Matheus Macedo"
+            onChange={props.change}
+            value={props.inputs.name}
           />
         </div>
 
@@ -25,6 +47,8 @@ export const Form = () => {
             name="number"
             id="number"
             placeholder="e.g. 1234 5653 23759 000"
+            onChange={props.change}
+            value={props.inputs.cardNumber}
           />
         </div>
 
@@ -34,9 +58,11 @@ export const Form = () => {
             <input
               className="input"
               type="text"
-              name="number"
-              id="number"
+              name="date"
+              id="date"
               placeholder="MM"
+              onChange={props.change}
+              value={props.inputs.MM}
             />
           </div>
 
@@ -45,9 +71,11 @@ export const Form = () => {
             <input
               className="input"
               type="text"
-              name="number"
-              id="number"
+              name="MMYY"
+              id="MMYY"
               placeholder="YY"
+              onChange={props.change}
+              value={props.inputs.YY}
             />
           </div>
 
@@ -56,9 +84,11 @@ export const Form = () => {
             <input
               className="input"
               type="text"
-              name="number"
-              id="number"
+              name="CVC"
+              id="CVC"
               placeholder="e.g. 123"
+              onChange={props.change}
+              value={props.inputs.CVC}
             />
           </div>
         </div>
