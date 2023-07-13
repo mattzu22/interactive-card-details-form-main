@@ -2,16 +2,28 @@ import { data } from "autoprefixer";
 import { useForm } from "react-hook-form";
 
 export const Form = (props) => {
-  const loginUser = data
- 
+  const loginUser = data;
+  console.log(props.inputs.cardNumber);
 
-  const { register, handleSubmit, formState: { errors }} =  useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const inputNumberValidation = (e) => {
+    const input = e.target.value.replace(/\D/g, "");
+    const formattedValue = input.replace(/\B(?=(\d{4})+(?!\d))/g, " ");
+
+    if (formattedValue.length <= 19) {
+      e.target.value = formattedValue;
+      props.change(e);
+    }
+  };
 
   return (
     <>
       <form
-        action="submit"
-        method="get"
         className="flex flex-col items-center justify-center pt-[130px] gap-[25px] p-[20px] uppercase max-w-[450px] m-auto md:m-0"
         onSubmit={handleSubmit(loginUser)}
       >
@@ -23,11 +35,23 @@ export const Form = (props) => {
             name="name"
             id="name"
             placeholder="e.g. Matheus Macedo"
-            {...register("name", { required: true })}
-            onChange={props.change}
+            {...register("name", { required: true, pattern: /^[a-zA-Z]+$/ })}
+            onChange={(e) => {
+              if (e.target.value.length <= 20) {
+                props.change(e);
+              }
+            }}
             value={props.inputs.name}
           />
-          {errors.name && <span className="text-[red] text-[11px]">*Campo obrigatorio</span>}
+          {errors.name && errors.name.type === "required" && (
+            <span className="text-[red] text-[8px]">campo obrigatório</span>
+          )}
+
+          {errors.name && errors.name.type === "pattern" && (
+            <span className="text-[red] text-[8px]">
+              apenas letras são permitidas
+            </span>
+          )}
         </div>
 
         <div className="full">
@@ -39,44 +63,58 @@ export const Form = (props) => {
             id="number"
             placeholder="e.g. 1234 5653 23759 000"
             {...register("number", { required: true })}
-            onChange={props.change}
+            onChange={inputNumberValidation}
             value={props.inputs.cardNumber}
           />
-          {errors.number && <span className="text-[red] text-[11px]">*Campo obrigatorio</span>}
+
+          {errors.number && (
+            <span className="text-[red] text-[8px] mt-[9px]">Campo obrigatório</span>
+          )}
         </div>
 
-        <div className="full flex gap-[8px]">
-          <div className="w-[25%]">
-            <p className="name-input font-primary">exp. date</p>
-            <input
-              className="input"
-              type="text"
-              name="date"
-              id="date"
-              placeholder="MM"
-              {...register("date", { required: true })}
-              onChange={props.change}
-              value={props.inputs.MM}
-            />
-             {errors.date && <span className="text-[red] text-[11px]">*Campo obrigatorio</span>}
+        <div className="full flex gap-[16px]">
+          <div className="flex flex-col">
+            <p className="name-input font-primary">exp. date (mm/YY)</p>
+            <div className="flex gap-[10px]">
+              <div className="w-[50%]">
+                <input
+                  className="input"
+                  type="text"
+                  name="date"
+                  id="date"
+                  placeholder="MM"
+                  {...register("date", { required: true, pattern: {
+                    value: /^(0[1-9]|1[0-2])$/,
+                    message: "Can't be blank"
+                  } })}
+                  onChange={props.change}
+                  value={props.inputs.MM}
+                />
+              </div>
+
+              <div className="w-[50%]">
+                <input
+                  className="input"
+                  type="text"
+                  name="MMYY"
+                  id="MMYY"
+                  placeholder="YY"
+                  {...register("date", { required: true })}
+                  onChange={props.change}
+                  value={props.inputs.YY}
+                />
+              </div>
+
+            </div>
+
+              {errors.date  &&(
+                <span className="text-[red] text-[8px] mt-[9px]">
+                  Con't be blank
+                </span>
+              )}
           </div>
 
-          <div className="w-[25%]">
-            <p className="name-input">(mm/YY)</p>
-            <input
-              className="input"
-              type="text"
-              name="MMYY"
-              id="MMYY"
-              placeholder="YY"
-              {...register("MMYY", { required: true })}
-              onChange={props.change}
-              value={props.inputs.YY}
-            />
-            {errors.MMYY && <span className="text-[red] text-[11px]">*Campo obrigatorio</span>}
-          </div>
-
-          <div className="w-[50%]">
+          <div className="w-[120%]">
             <p className="name-input">cvc</p>
             <input
               className="input"
@@ -88,15 +126,16 @@ export const Form = (props) => {
               onChange={props.change}
               value={props.inputs.CVC}
             />
-            {errors.CVC && <span className="text-[red] text-[11px]">*Campo obrigatorio</span>}
+            {errors.CVC && (
+              <span className="text-[red] text-[8px]">*Campo obrigatorio</span>
+            )}
           </div>
         </div>
 
-        <button
+        <input
+          type="submit"
           className="bg-[#2c012c] text-white w-full p-[17px] rounded-[10px] mt-[15px]"
-        >
-          Confirm
-        </button>
+        />
       </form>
     </>
   );
