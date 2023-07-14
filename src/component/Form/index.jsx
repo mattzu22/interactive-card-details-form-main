@@ -1,9 +1,15 @@
 import { data } from "autoprefixer";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Sucesso } from "../verificado";
 
 export const Form = (props) => {
-  const loginUser = data;
-  console.log(props.inputs.cardNumber);
+  const [submitted, setSubmitted] = useState(false);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    setSubmitted(true);
+  };
 
   const {
     register,
@@ -21,11 +27,15 @@ export const Form = (props) => {
     }
   };
 
+  if (submitted) {
+    return <Sucesso />;
+  }
+
   return (
     <>
       <form
         className="flex flex-col items-center justify-center pt-[130px] gap-[25px] p-[20px] uppercase max-w-[450px] m-auto md:m-0"
-        onSubmit={handleSubmit(loginUser)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="full">
           <p className="name-input">cardholder name</p>
@@ -35,7 +45,12 @@ export const Form = (props) => {
             name="name"
             id="name"
             placeholder="e.g. Matheus Macedo"
-            {...register("name", { required: true, pattern: /^[a-zA-Z]+$/ })}
+            {...register("name", {
+              required: true,
+              pattern: {
+                value: /^[A-Za-z]+(?:\s+[A-Za-z]+)*$/,
+              },
+            })}
             onChange={(e) => {
               if (e.target.value.length <= 20) {
                 props.change(e);
@@ -48,9 +63,7 @@ export const Form = (props) => {
           )}
 
           {errors.name && errors.name.type === "pattern" && (
-            <span className="text-[red] text-[8px]">
-              apenas letras são permitidas
-            </span>
+            <span className="text-[red] text-[8px]">*Nome inválido</span>
           )}
         </div>
 
@@ -64,11 +77,13 @@ export const Form = (props) => {
             placeholder="e.g. 1234 5653 23759 000"
             {...register("number", { required: true })}
             onChange={inputNumberValidation}
-            value={props.inputs.cardNumber}
+            value={props.inputs.number}
           />
 
           {errors.number && (
-            <span className="text-[red] text-[8px] mt-[9px]">Campo obrigatório</span>
+            <span className="text-[red] text-[8px] mt-[9px]">
+              *Campo obrigatório
+            </span>
           )}
         </div>
 
@@ -80,38 +95,52 @@ export const Form = (props) => {
                 <input
                   className="input"
                   type="text"
-                  name="date"
-                  id="date"
+                  name="month"
+                  id="month"
                   placeholder="MM"
-                  {...register("date", { required: true, pattern: {
-                    value: /^(0[1-9]|1[0-2])$/,
-                    message: "Can't be blank"
-                  } })}
+                  {...register("month", {
+                    required: true,
+                    pattern: {
+                      value: /^(0[1-9]|1[0-2])$/,
+                      message: "Mês inválido",
+                    },
+                  })}
                   onChange={props.change}
-                  value={props.inputs.MM}
+                  value={props.inputs.month}
                 />
+
+                {errors.month && (
+                  <span className="text-[red] text-[8px] mt-[9px]">
+                    {errors.month.message}
+                  </span>
+                )}
               </div>
 
               <div className="w-[50%]">
                 <input
                   className="input"
                   type="text"
-                  name="MMYY"
-                  id="MMYY"
+                  name="year"
+                  id="year"
                   placeholder="YY"
-                  {...register("date", { required: true })}
+                  {...register("year", {
+                    required: true,
+                    pattern: {
+                      value: /^([1-9]|[12]\d|3[01])$/,
+                      message: "Dia inválido",
+                    },
+                  })}
                   onChange={props.change}
-                  value={props.inputs.YY}
+                  value={props.inputs.year}
                 />
+
+                {errors.year && (
+                  <span className="text-[red] text-[8px] mt-[9px]">
+                    {errors.year.message}
+                  </span>
+                )}
               </div>
-
             </div>
-
-              {errors.date  &&(
-                <span className="text-[red] text-[8px] mt-[9px]">
-                  Con't be blank
-                </span>
-              )}
           </div>
 
           <div className="w-[120%]">
@@ -122,12 +151,17 @@ export const Form = (props) => {
               name="CVC"
               id="CVC"
               placeholder="e.g. 123"
-              {...register("CVC", { required: true })}
+              {...register("CVC", {
+                required: true,
+                pattern: {
+                  value: /^[0-9]{3}$/,
+                },
+              })}
               onChange={props.change}
               value={props.inputs.CVC}
             />
             {errors.CVC && (
-              <span className="text-[red] text-[8px]">*Campo obrigatorio</span>
+              <span className="text-[red] text-[8px]">*CVC invãlido</span>
             )}
           </div>
         </div>
