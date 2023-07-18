@@ -28,7 +28,7 @@ export const Form = (props) => {
   };
 
   if (submitted) {
-    return <Sucesso />;
+    return <Sucesso/>;
   }
 
   return (

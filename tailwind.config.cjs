@@ -20,7 +20,7 @@ module.exports = {
       colors:{
         grey: 'hsl(279, 6%, 55%)',
         violet: 'hsl(278, 68%, 11%)'
-      }
+      },
     },
   },
   plugins: [],
